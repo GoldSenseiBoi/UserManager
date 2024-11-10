@@ -69,5 +69,20 @@ class Modele {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    // Fonction verifConnexion pour authentifier l'utilisateur
+        $query = "SELECT * FROM user WHERE email = :email";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($password, $user['password'])) {
+            // Mot de passe valide
+            return $user;
+        }
+        
+        // Retourne null si l'authentification échoue
+        return null;
+    }
 }
 ?>

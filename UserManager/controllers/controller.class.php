@@ -31,5 +31,9 @@ class Controleur {
     public function count($table) {
         return $this->modele->count($table);
     }
+    
+    public function verifConnexion($email, $password) {
+        return $this->modele->verifConnexion($email, $password);
+    }
 }
 ?>

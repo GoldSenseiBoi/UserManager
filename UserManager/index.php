@@ -44,15 +44,19 @@ $unControleur = new Controleur();
 
     if (isset($_POST['seConnecter'])) {
         $email = $_POST['email'];
-        $mdp = $_POST['mdp'];
-        $unUser = $unControleur->verifConnexion($email, $mdp);
-
-        if ($unUser != null) {
-            $_SESSION['prenom'] = $unUser['prenom'];
-            $_SESSION['email'] = $unUser['email'];
-            header("Location: index.php?page=1");
+        $password = $_POST['password'];
+        $user = $unControleur->verifConnexion($email, $password);
+    
+        if ($user) {
+            // Authentification réussie
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['nom'] = $user['nom'];
+            $_SESSION['prenom'] = $user['prenom'];
+            $_SESSION['email'] = $user['email'];
+            header("Location: index.php?page=accueil");
+            exit();
         } else {
-            echo "<br>Identifiant ou mot de passe incorrect";
+            echo "Identifiant ou mot de passe incorrect";
         }
     }
 
