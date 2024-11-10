@@ -71,6 +71,7 @@ class Modele {
     }
 
     // Fonction verifConnexion pour authentifier l'utilisateur
+    public function verifConnexion($email, $password) {
         $query = "SELECT * FROM user WHERE email = :email";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([':email' => $email]);
