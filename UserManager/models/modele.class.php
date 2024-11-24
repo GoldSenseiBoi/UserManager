@@ -1,18 +1,26 @@
 <?php
-class Modele {
+
+require_once('config/database.php');
+
+$db = new database();
+$conn = $db->getConnection();
+
+if ($conn) {
+    echo "Connexion réussie !";
+} else {
+    echo "Échec de la connexion.";
+}
+
+class modele {
     private $conn;
 
-    public function __construct($host, $dbname, $username, $password) {
-        try {
-            $this->conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            echo "Erreur de connexion : " . $e->getMessage();
-        }
+    public function __construct() {
+        $db = new database();
+        $this->conn = $db->getConnection();
     }
 
     public function insertUser($data) {
-        $query = "INSERT INTO user (nom, prenom, email, adresse, code_postale, city, password, admin) 
+        $query = "INSERT INTO user (nom, prenom, email, adresse, code_postale, city, password, admin)
                   VALUES (:nom, :prenom, :email, :adresse, :code_postale, :city, :password, :admin)";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
@@ -22,10 +30,11 @@ class Modele {
             ':adresse' => $data['adresse'],
             ':code_postale' => $data['code_postale'],
             ':city' => $data['city'],
-            ':password' => password_hash($data['password'], PASSWORD_BCRYPT),
-            ':admin' => isset($data['admin']) ? 1 : 0
+            ':password' => $data['password'],
+            ':admin' => 0 // Par défaut, non administrateur
         ]);
     }
+    
 
     public function selectAllUsers() {
         $query = "SELECT * FROM user";
@@ -72,18 +81,14 @@ class Modele {
 
     // Fonction verifConnexion pour authentifier l'utilisateur
     public function verifConnexion($email, $password) {
-        $query = "SELECT * FROM user WHERE email = :email";
+        $query = "SELECT * FROM user WHERE email = :email AND password = :password";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([':email' => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($user && password_verify($password, $user['password'])) {
-            // Mot de passe valide
-            return $user;
-        }
-        
-        // Retourne null si l'authentification échoue
-        return null;
+        $stmt->execute([
+            ':email' => $email,
+            ':password' => $password
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    
 }
 ?>

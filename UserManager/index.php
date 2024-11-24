@@ -1,7 +1,12 @@
 <?php
-session_start();
-require_once("controller/controller.class.php");
-$unControleur = new Controleur();
+// Démarrer la session si elle n'est pas déjà démarrée
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Charger les fichiers nécessaires
+require_once('controllers/controller.class.php');
+$unControleur = new Controller();
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,44 +44,46 @@ $unControleur = new Controleur();
 <div class="container">
     <?php
     if (!isset($_SESSION['email'])) {
-        require_once("views/vue_connexion.php");
-    }
-
-    if (isset($_POST['seConnecter'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $user = $unControleur->verifConnexion($email, $password);
-    
-        if ($user) {
-            // Authentification réussie
-            $_SESSION['id'] = $user['id'];
-            $_SESSION['nom'] = $user['nom'];
-            $_SESSION['prenom'] = $user['prenom'];
-            $_SESSION['email'] = $user['email'];
-            header("Location: index.php?page=accueil");
-            exit();
+        if (isset($_GET['page']) && $_GET['page'] == 'inscription') {
+            require_once("views/vue_inscription.php");
         } else {
-            echo "Identifiant ou mot de passe incorrect";
+            require_once("views/vue_connexion.php");
         }
-    }
 
-    if (isset($_SESSION['email'])) {
+        if (isset($_POST['seConnecter'])) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $user = $unControleur->verifConnexion($email, $password);
+        
+            if ($user) {
+                // Authentification réussie
+                $_SESSION['id'] = $user['id'];
+                $_SESSION['nom'] = $user['nom'];
+                $_SESSION['prenom'] = $user['prenom'];
+                $_SESSION['email'] = $user['email'];
+                header("Location: index.php?page=accueil");
+                exit();
+            } else {
+                echo "<p class='text-danger'>Identifiant ou mot de passe incorrect</p>";
+            }
+        }
+    } else {
+        // Si l'utilisateur est connecté, afficher la page d'accueil avec les options
         echo "<div class='container'>
                 <div class='row'>
                     <div class='col-md-9 offset-md-2 text-center'>
                         <h1>Bienvenue sur le site de Bonbec</h1>
-                        <p class='lead'>Bonjour " . $_SESSION['prenom'] . ", explorez notre sélection de bonbons et gérez les fonctionnalités disponibles.</p>
+                        <p class='lead'>Bonjour " . htmlspecialchars($_SESSION['prenom']) . ", explorez notre sélection de bonbons et gérez les fonctionnalités disponibles.</p>
                     </div>
                 </div>
               </div>";
 
-        
         echo '
         <div class="row justify-content-center">
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
-                        <a href="index.php?page=1" title="Accueil">
+                        <a href="index.php?page=accueil" title="Accueil">
                             <img src="image/accueil.png" class="card-img-top" alt="Accueil">
                         </a>
                         <h5 class="card-title">Accueil</h5>
@@ -86,7 +93,7 @@ $unControleur = new Controleur();
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
-                        <a href="index.php?page=2" title="Gestion des produits">
+                        <a href="index.php?page=gestion_produits" title="Gestion des produits">
                             <img src="image/bonbon.png" class="card-img-top" alt="Gestion des produits">
                         </a>
                         <h5 class="card-title">Gestion des produits</h5>
@@ -96,7 +103,7 @@ $unControleur = new Controleur();
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
-                        <a href="index.php?page=3" title="Gestion des utilisateurs">
+                        <a href="index.php?page=gestion_utilisateurs" title="Gestion des utilisateurs">
                             <img src="image/utilisateur.png" class="card-img-top" alt="Gestion des utilisateurs">
                         </a>
                         <h5 class="card-title">Gestion des utilisateurs</h5>
@@ -106,7 +113,7 @@ $unControleur = new Controleur();
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
-                        <a href="index.php?page=4" title="Déconnexion">
+                        <a href="index.php?page=deconnexion" title="Déconnexion">
                             <img src="image/deconnexion.png" class="card-img-top" alt="Déconnexion">
                         </a>
                         <h5 class="card-title">Déconnexion</h5>
@@ -116,20 +123,31 @@ $unControleur = new Controleur();
         </div>';
     }
 
+    // Gestion des pages avec switch
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
     } else {
-        $page = 1; 
+        $page = 'accueil';
     }
 
     switch ($page) {
-        case 1: require_once("vue/vue_accueil.php"); break;
-        case 2: require_once("gestion_produit.php"); break;
-        case 3: require_once("gestion_user.php"); break;
-        case 4:
+        case 'accueil':
+            require_once("index.php");
+            break;
+        case 'gestion_produits':
+            require_once("gestion_produit.php");
+            break;
+        case 'gestion_utilisateurs':
+            require_once("gestion_user.php");
+            break;
+        case 'deconnexion':
             session_destroy();
             unset($_SESSION['email']);
             echo '<script language="javascript">window.location.href="index.php";</script>';
+            exit();
+            break;
+        default:
+            echo "<p>Erreur : Page non trouvée.</p>";
             break;
     }
     ?>

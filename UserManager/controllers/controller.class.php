@@ -1,11 +1,11 @@
 <?php
-require_once("modele.class.php");
+require_once($_SERVER['DOCUMENT_ROOT'].'/GitHub/Ghost_reader/UserManager/UserManager/models/modele.class.php');
 
-class Controleur {
+class controller {
     private $modele;
 
     public function __construct() {
-        $this->modele = new Modele('localhost', 'bonbec', 'root', '');
+        $this->modele = new modele('localhost', 'bonbec', 'root', '');
     }
 
     public function insertUser($data) {
