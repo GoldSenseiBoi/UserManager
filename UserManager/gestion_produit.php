@@ -1,7 +1,8 @@
 <?php
 echo '<h2> Gestion des Produits </h2><br /><br />';
 
-$leProduit = null;
+$lesProduits = $unControleur->selectAllProduits();
+
 
 if (isset($_GET['action']) && isset($_GET['idProduit'])) {
     $idProduit = $_GET['idProduit'];
@@ -49,9 +50,9 @@ if (isset($_POST['Filtrer'])) {
     $lesProduits = $unControleur->selectAllProduits();
 }
 
-$nb = $unControleur->count("produits")['nb'];
+$nb = $unControleur->count("produit")['nb'];
 echo "<br> Nombre de produits : " . $nb;
 
 
-require_once("views/vue_select_produits.php");
+require_once("views/vue_select_produit.php");
 ?>

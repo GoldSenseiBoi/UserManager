@@ -50,7 +50,7 @@ if (isset($_POST['Annuler'])) {
 $lesUtilisateurs = $unControleur->selectAllUsers();
 
 
-$nb = $unControleur->count("users")['nb'];
+$nb = $unControleur->count("user")['nb'];
 echo "<br> Nombre d'utilisateurs : " . $nb;
 
 

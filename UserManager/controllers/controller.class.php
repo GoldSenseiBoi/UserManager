@@ -16,6 +16,10 @@ class controller {
         return $this->modele->selectAllUsers();
     }
 
+    public function selectLikeUser($keyword) {
+        return $this->modele->selectLikeUser($keyword);
+    }
+    
     public function selectWhereUser($id) {
         return $this->modele->selectWhereUser($id);
     }
@@ -27,6 +31,30 @@ class controller {
     public function deleteUser($id) {
         $this->modele->deleteUser($id);
     }
+
+    public function selectAllProduits() {
+        return $this->modele->selectAllProduits();
+    }
+    public function insertProduit($data) {
+        $this->modele->insertProduit($data);
+    }
+    
+    public function deleteProduit($id) {
+        $this->modele->deleteProduit($id);
+    }
+
+    public function updateProduit($data) {
+        $this->modele->updateProduit($data);
+    }
+    
+    public function selectWhereProduit($id) {
+        return $this->modele->selectWhereProduit($id);
+    }
+    
+    public function selectLikeProduit($keyword) {
+        return $this->modele->selectLikeProduit($keyword);
+    }
+    
 
     public function count($table) {
         return $this->modele->count($table);

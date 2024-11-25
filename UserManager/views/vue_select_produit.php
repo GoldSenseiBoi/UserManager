@@ -1,3 +1,11 @@
+<?php
+require_once('controllers/controller.class.php');
+$unControleur = new Controller();
+
+// Récupérer les produits depuis la base de données
+$lesProduits = $unControleur->selectAllProduits();
+?>
+
 <h3>Liste des produits (bonbons)</h3>
 <form method="post">
     <p>Filtrer par : </p>
@@ -23,8 +31,8 @@
                 echo "<td>" . htmlspecialchars($produit['nom']) . "</td>";
                 echo "<td>" . htmlspecialchars($produit['prix']) . "</td>";
                 echo "<td>";
-                echo "<a href='index.php?page=produits&action=sup&idProduit=" . $produit['id'] . "'><img src='image/supprimer.png' height='30' width='30'></a>";
-                echo "<a href='index.php?page=produits&action=edit&idProduit=" . $produit['id'] . "'><img src='image/editer.png' height='30' width='30'></a>";
+                echo "<a href='index.php?page=gestion_produits&action=sup&idProduit=" . $produit['id'] . "'><img src='image/supprimer.png' height='30' width='30'></a>";
+                echo "<a href='index.php?page=gestion_produits&action=edit&idProduit=" . $produit['id'] . "'><img src='image/editer.png' height='30' width='30'></a>";
                 echo "</td>";
                 echo "</tr>";
             }

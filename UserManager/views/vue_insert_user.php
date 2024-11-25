@@ -1,4 +1,4 @@
-<form method="post" action="">
+<form method="post" action="traitement-insert-user.php">
     <label>Nom:</label>
     <input type="text" name="nom" required value="<?= $lUtilisateur['nom'] ?? '' ?>">
     <label>Prénom:</label>
