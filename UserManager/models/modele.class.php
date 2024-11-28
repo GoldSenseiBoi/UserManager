@@ -43,36 +43,48 @@ class modele {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectLikeUser($keyword) {
-        $query = "SELECT * FROM user WHERE nom LIKE :keyword OR prenom LIKE :keyword";
+    public function selectLikeUser($filtre) {
+        $query = "SELECT * FROM user WHERE nom LIKE :filtre OR prenom LIKE :filtre";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([':keyword' => "%$keyword%"]);
+        $stmt->execute([':filtre' => "%$filtre%"]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     
 
     public function selectWhereUser($id) {
         $query = "SELECT * FROM user WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Retourne un tableau associatif
     }
+    
 
     public function updateUser($data) {
-        $query = "UPDATE user SET nom = :nom, prenom = :prenom, email = :email, adresse = :adresse, 
-                code_postale = :code_postale, city = :city, admin = :admin WHERE id = :id";
+        $query = "UPDATE user SET 
+                    nom = :nom, 
+                    prenom = :prenom, 
+                    email = :email, 
+                    adresse = :adresse, 
+                    code_postal = :code_postal, 
+                    ville = :ville, 
+                    password = :password, 
+                    admin = :admin 
+                  WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
             ':nom' => $data['nom'],
             ':prenom' => $data['prenom'],
             ':email' => $data['email'],
             ':adresse' => $data['adresse'],
-            ':code_postale' => $data['code_postale'],
-            ':city' => $data['city'],
-            ':admin' => isset($data['admin']) ? 1 : 0,
+            ':code_postal' => $data['code_postal'],
+            ':ville' => $data['ville'],
+            ':password' => sha1($data['password']), // Crypter le mot de passe
+            ':admin' => $data['admin'],
             ':id' => $data['id']
         ]);
     }
+    
 
     public function deleteUser($id) {
         $query = "DELETE FROM user WHERE id = :id";
@@ -87,12 +99,13 @@ class modele {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectLikeProduit($keyword) {
-        $query = "SELECT * FROM produit WHERE nom LIKE :keyword";
+    public function selectLikeProduit($filtre) {
+        $query = "SELECT * FROM produit WHERE nom LIKE :filtre";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([':keyword' => "%$keyword%"]);
+        $stmt->execute([':filtre' => "%$filtre%"]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
 
     public function selectWhereProduit($id) {
         $query = "SELECT * FROM produit WHERE id = :id";
@@ -110,6 +123,7 @@ class modele {
             ':id' => $data['id']
         ]);
     }
+    
     
     public function deleteProduit($id) {
         $query = "DELETE FROM produit WHERE id = :id";

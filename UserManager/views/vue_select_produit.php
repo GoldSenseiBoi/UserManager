@@ -1,12 +1,4 @@
-<?php
-require_once('controllers/controller.class.php');
-$unControleur = new Controller();
-
-// Récupérer les produits depuis la base de données
-$lesProduits = $unControleur->selectAllProduits();
-?>
-
-<h3>Liste des produits (bonbons)</h3>
+<h3>Liste des produits</h3>
 <form method="post">
     <p>Filtrer par : </p>
     <input type="text" name="filtre" placeholder="Nom du produit">
@@ -16,10 +8,10 @@ $lesProduits = $unControleur->selectAllProduits();
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>ID Produit</th>
+            <th>ID</th>
             <th>Nom</th>
             <th>Prix (€)</th>
-            <th>Opération</th>
+            <th>Opérations</th>
         </tr>
     </thead>
     <tbody>
@@ -31,8 +23,8 @@ $lesProduits = $unControleur->selectAllProduits();
                 echo "<td>" . htmlspecialchars($produit['nom']) . "</td>";
                 echo "<td>" . htmlspecialchars($produit['prix']) . "</td>";
                 echo "<td>";
-                echo "<a href='index.php?page=gestion_produits&action=sup&idProduit=" . $produit['id'] . "'><img src='image/supprimer.png' height='30' width='30'></a>";
                 echo "<a href='index.php?page=gestion_produits&action=edit&idProduit=" . $produit['id'] . "'><img src='image/editer.png' height='30' width='30'></a>";
+                echo "<a href='index.php?page=gestion_produits&action=sup&idProduit=" . $produit['id'] . "'><img src='image/supprimer.png' height='30' width='30'></a>";
                 echo "</td>";
                 echo "</tr>";
             }

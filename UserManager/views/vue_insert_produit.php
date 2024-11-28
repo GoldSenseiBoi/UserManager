@@ -1,13 +1,26 @@
-<h3><?= isset($produit) ? "Modifier un produit" : "Ajouter un produit" ?></h3>
-<form method="post" action="<?= isset($produit) ? 'traitement-update-produit.php' : 'traitement-insert-produit.php' ?>">
-    <input type="hidden" name="id" value="<?= isset($produit) ? htmlspecialchars($produit['id']) : '' ?>">
-    <div>
-        <label for="nom">Nom :</label>
-        <input type="text" name="nom" id="nom" value="<?= isset($produit) ? htmlspecialchars($produit['nom']) : '' ?>" required>
-    </div>
-    <div>
-        <label for="prix">Prix :</label>
-        <input type="number" step="0.01" name="prix" id="prix" value="<?= isset($produit) ? htmlspecialchars($produit['prix']) : '' ?>" required>
-    </div>
-    <button type="submit"><?= isset($produit) ? "Modifier" : "Ajouter" ?></button>
+<h3>Ajout/Modification d'un produit</h3>
+<form method="post">
+    <table>
+        <tr>
+            <td>Nom du produit</td>
+            <td><input type="text" name="nom" value="<?= isset($produit) ? htmlspecialchars($produit['nom']) : '' ?>" required></td>
+        </tr>
+        <tr>
+            <td>Prix du produit</td>
+            <td><input type="number" step="0.01" name="prix" value="<?= isset($produit) ? htmlspecialchars($produit['prix']) : '' ?>" required></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" <?= isset($produit) ? 'name="Modifier" value="Modifier"' : 'name="Valider" value="Valider"' ?>>
+                <input type="button" onclick="annulerModification()" value="Annuler">
+            </td>
+        </tr>
+        <?= isset($produit) ? '<input type="hidden" name="id" value="'.htmlspecialchars($produit['id']).'">' : '' ?>
+    </table>
 </form>
+<script>
+function annulerModification() {
+    window.location.href = "index.php?page=gestion_produits";
+}
+</script>
