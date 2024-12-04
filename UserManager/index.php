@@ -74,8 +74,8 @@ $unControleur = new Controller();
             }
         }
     } else {
-        // Si l'utilisateur est connecté, afficher la page d'accueil avec les options
-        // Si l'utilisateur est connecté, afficher la page d'accueil avec les options
+        // Si l'utilisateur admin est connecté, afficher la page d'accueil avec les options
+        
             echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-9 offset-md-2 text-center' style='margin-top: 20px;'>
@@ -112,7 +112,7 @@ $unControleur = new Controller();
             <div class="col-md-3">
             <div class="card text-center" style="border: 2px solid #ff69b4; border-radius: 15px;">
                 <div class="card-body">
-                    <a href="index.php?page=gestion_utilisateurs" title="Gestion des utilisateurs">
+                    <a href="index.php?page=gestion_user" title="Gestion des utilisateurs">
                         <img src="image/utilisateur.png" class="card-img-top" alt="Gestion des utilisateurs" style="border-radius: 10px;">
                     </a>
                     <h5 class="card-title" style="font-family: \"Comic Sans MS\", cursive; color: #ff69b4;">Gestion des utilisateurs</h5>
@@ -140,6 +140,8 @@ $unControleur = new Controller();
         $page = 'accueil';
     }
 
+    //var_dump($page, $_GET); test 
+
     switch ($page) {
         case 'accueil':
             require_once("index.php");
@@ -147,7 +149,7 @@ $unControleur = new Controller();
         case 'gestion_produits':
             require_once("gestion_produit.php");
             break;
-        case 'gestion_utilisateurs':
+        case 'gestion_user': // Corrigé pour correspondre à l'URL
             require_once("gestion_user.php");
             break;
         case 'deconnexion':
@@ -160,6 +162,7 @@ $unControleur = new Controller();
             echo "<p>Erreur : Page non trouvée.</p>";
             break;
     }
+    
     ?>
 </div>
 

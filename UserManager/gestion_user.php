@@ -16,26 +16,11 @@ if (isset($_GET['action']) && isset($_GET['idUser'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = [
-        'nom' => isset($_POST['nom']) ? htmlspecialchars($_POST['nom'], ENT_QUOTES, 'UTF-8') : '',
-        'prenom' => isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom'], ENT_QUOTES, 'UTF-8') : '',
-        'email' => isset($_POST['email']) ? htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8') : '',
-        'adresse' => isset($_POST['adresse']) ? htmlspecialchars($_POST['adresse'], ENT_QUOTES, 'UTF-8') : '',
-        'code_postal' => isset($_POST['code_postal']) ? htmlspecialchars($_POST['code_postal'], ENT_QUOTES, 'UTF-8') : '',
-        'ville' => isset($_POST['ville']) ? htmlspecialchars($_POST['ville'], ENT_QUOTES, 'UTF-8') : '',
-        'admin' => isset($_POST['admin']) ? intval($_POST['admin']) : 0,
-        'password' => isset($_POST['password']) && $_POST['password'] !== '' ? sha1($_POST['password']) : null
-    ];
-    
-    
-
-    if (isset($_POST['id']) && $_POST['id'] !== '') {
-        $data['id'] = intval($_POST['id']);
-        $unControleur->updateUser($data);
-    } else {
-        $unControleur->insertUser($data);
+    if (isset($_POST['Modifier'])) {
+        $unControleur->updateUser($_POST);
+    } elseif (isset($_POST['Valider'])) {
+        $unControleur->insertUser($_POST);
     }
-
     echo '<script>window.location.href="index.php?page=gestion_user";</script>';
 }
 

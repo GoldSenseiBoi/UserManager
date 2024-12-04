@@ -66,8 +66,8 @@ class modele {
                     prenom = :prenom, 
                     email = :email, 
                     adresse = :adresse, 
-                    code_postal = :code_postal, 
-                    ville = :ville, 
+                    code_postale = :code_postale, 
+                    city = :city, 
                     password = :password, 
                     admin = :admin 
                   WHERE id = :id";
@@ -77,8 +77,8 @@ class modele {
             ':prenom' => $data['prenom'],
             ':email' => $data['email'],
             ':adresse' => $data['adresse'],
-            ':code_postal' => $data['code_postal'],
-            ':ville' => $data['ville'],
+            ':code_postale' => $data['code_postale'],
+            ':city' => $data['city'],
             ':password' => sha1($data['password']), // Crypter le mot de passe
             ':admin' => $data['admin'],
             ':id' => $data['id']
