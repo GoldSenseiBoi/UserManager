@@ -11,7 +11,7 @@ $unControleur = new Controller();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bonbec - Site de Bonbons</title>
+    <title>🍬 Bonbec Paradise 🍭</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -44,7 +44,7 @@ $unControleur = new Controller();
 <div class="container">
 <header style="background: linear-gradient(to right, #ff7eb3, #ff758c, #ff7eb3); padding: 20px; text-align: center; color: white; font-family: 'Comic Sans MS', cursive; box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);">
     <h1 style="font-size: 2.5em; margin: 0;">
-        🍬 Bonbon Paradise 🍭
+        🍬 Bonbec Paradise 🍭
     </h1>
 </header>
 
