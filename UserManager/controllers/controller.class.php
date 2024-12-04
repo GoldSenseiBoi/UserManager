@@ -16,8 +16,8 @@ class controller {
         return $this->modele->selectAllUsers();
     }
 
-    public function selectLikeUser($keyword) {
-        return $this->modele->selectLikeUser($keyword);
+    public function selectLikeUser($filtre) {
+        return $this->modele->selectLikeUser($filtre);
     }
     
     public function selectWhereUser($id) {
@@ -51,8 +51,8 @@ class controller {
         return $this->modele->selectWhereProduit($id);
     }
     
-    public function selectLikeProduit($keyword) {
-        return $this->modele->selectLikeProduit($keyword);
+    public function selectLikeProduit($filtre) {
+        return $this->modele->selectLikeProduit($filtre);
     }
     
 

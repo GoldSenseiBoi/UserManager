@@ -100,10 +100,11 @@ class modele {
     }
 
     public function selectLikeProduit($filtre) {
-        $query = "SELECT * FROM produit WHERE nom LIKE :filtre";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([':filtre' => "%$filtre%"]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $requete = "SELECT * FROM produit WHERE nom LIKE :filtre";
+        $donnees = array(":filtre" => "%".$filtre."%");
+		$select = $this->conn->prepare($requete);
+		$select->execute($donnees);
+		return $select->fetchAll();
     }
     
 
