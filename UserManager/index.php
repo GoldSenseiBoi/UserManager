@@ -42,6 +42,12 @@ $unControleur = new Controller();
 <body>
 
 <div class="container">
+<header style="background: linear-gradient(to right, #ff7eb3, #ff758c, #ff7eb3); padding: 20px; text-align: center; color: white; font-family: 'Comic Sans MS', cursive; box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);">
+    <h1 style="font-size: 2.5em; margin: 0;">
+        🍬 Bonbon Paradise 🍭
+    </h1>
+</header>
+
     <?php
     if (!isset($_SESSION['email'])) {
         if (isset($_GET['page']) && $_GET['page'] == 'inscription') {
@@ -69,58 +75,62 @@ $unControleur = new Controller();
         }
     } else {
         // Si l'utilisateur est connecté, afficher la page d'accueil avec les options
-        echo "<div class='container'>
-                <div class='row'>
-                    <div class='col-md-9 offset-md-2 text-center'>
-                        <h1>Bienvenue sur le site de Bonbec</h1>
-                        <p class='lead'>Bonjour " . htmlspecialchars($_SESSION['prenom']) . ", explorez notre sélection de bonbons et gérez les fonctionnalités disponibles.</p>
-                    </div>
+        // Si l'utilisateur est connecté, afficher la page d'accueil avec les options
+            echo "<div class='container'>
+            <div class='row'>
+                <div class='col-md-9 offset-md-2 text-center' style='margin-top: 20px;'>
+                    
+                    <p class='lead' style='font-family: \"Comic Sans MS\", cursive; color: #d10080;'>
+                        Bonjour <strong>" . htmlspecialchars($_SESSION['prenom']) . "</strong>, explorez notre sélection de bonbons et gérez les fonctionnalités disponibles !
+                    </p>
                 </div>
-              </div>";
+            </div>
+            </div>";
 
-        echo '
-        <div class="row justify-content-center">
+            echo '
+            <div class="row justify-content-center" style="margin-top: 20px;">
             <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="index.php?page=accueil" title="Accueil">
-                            <img src="image/accueil.png" class="card-img-top" alt="Accueil">
-                        </a>
-                        <h5 class="card-title">Accueil</h5>
-                    </div>
+            <div class="card text-center" style="border: 2px solid #ff69b4; border-radius: 15px;">
+                <div class="card-body">
+                    <a href="index.php?page=accueil" title="Accueil">
+                        <img src="image/accueil.png" class="card-img-top" alt="Accueil" style="border-radius: 10px;">
+                    </a>
+                    <h5 class="card-title" style="font-family: \"Comic Sans MS\", cursive; color: #ff69b4;">Accueil</h5>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="index.php?page=gestion_produits" title="Gestion des produits">
-                            <img src="image/bonbon.png" class="card-img-top" alt="Gestion des produits">
-                        </a>
-                        <h5 class="card-title">Gestion des produits</h5>
-                    </div>
-                </div>
             </div>
             <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="index.php?page=gestion_utilisateurs" title="Gestion des utilisateurs">
-                            <img src="image/utilisateur.png" class="card-img-top" alt="Gestion des utilisateurs">
-                        </a>
-                        <h5 class="card-title">Gestion des utilisateurs</h5>
-                    </div>
+            <div class="card text-center" style="border: 2px solid #ff69b4; border-radius: 15px;">
+                <div class="card-body">
+                    <a href="index.php?page=gestion_produits" title="Gestion des produits">
+                        <img src="image/bonbon.png" class="card-img-top" alt="Gestion des produits" style="border-radius: 10px;">
+                    </a>
+                    <h5 class="card-title" style="font-family: \"Comic Sans MS\", cursive; color: #ff69b4;">Gestion des produits</h5>
                 </div>
+            </div>
             </div>
             <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <a href="index.php?page=deconnexion" title="Déconnexion">
-                            <img src="image/deconnexion.png" class="card-img-top" alt="Déconnexion">
-                        </a>
-                        <h5 class="card-title">Déconnexion</h5>
-                    </div>
+            <div class="card text-center" style="border: 2px solid #ff69b4; border-radius: 15px;">
+                <div class="card-body">
+                    <a href="index.php?page=gestion_utilisateurs" title="Gestion des utilisateurs">
+                        <img src="image/utilisateur.png" class="card-img-top" alt="Gestion des utilisateurs" style="border-radius: 10px;">
+                    </a>
+                    <h5 class="card-title" style="font-family: \"Comic Sans MS\", cursive; color: #ff69b4;">Gestion des utilisateurs</h5>
                 </div>
             </div>
-        </div>';
+            </div>
+            <div class="col-md-3">
+            <div class="card text-center" style="border: 2px solid #ff69b4; border-radius: 15px;">
+                <div class="card-body">
+                    <a href="index.php?page=deconnexion" title="Déconnexion">
+                        <img src="image/deconnexion.png" class="card-img-top" alt="Déconnexion" style="border-radius: 10px;">
+                    </a>
+                    <h5 class="card-title" style="font-family: \"Comic Sans MS\", cursive; color: #ff69b4;">Déconnexion</h5>
+                </div>
+            </div>
+            </div>
+            </div>';
+
     }
 
     // Gestion des pages avec switch
