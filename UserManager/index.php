@@ -19,28 +19,54 @@ $isAdmin = isset($_SESSION['admin']) && $_SESSION['admin'] == 1;
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        .container {
-            margin-top: 10px;
-        }
-        .card {
-            margin-bottom: 20px;
-        }
-        .card-img-top {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-        }
-        .card-title {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .footer {
-            width: 100%;
-            background-color: #f8f9fa;
-            padding: 10px 0;
-            text-align: center;
-        }
-    </style>
+    body {
+        background: linear-gradient(to bottom, #fff0f5, #ffe4e1); /* Dégradé doux pour le fond */
+        font-family: 'Comic Sans MS', cursive; /* Police ludique */
+        color: #d10080; /* Couleur du texte par défaut */
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        margin-top: 0px;
+    }
+    .card {
+        margin-bottom: 20px;
+        border: 2px solid #ff69b4; /* Bordure rose pour un thème bonbon */
+        border-radius: 15px; /* Coins arrondis */
+        box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3); /* Ombre douce */
+    }
+    .card-img-top {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        margin: 10px auto;
+        border-radius: 50%; /* Donne un style arrondi comme un bonbon */
+        background: #fff0f5; /* Couleur de fond pastel */
+        padding: 5px;
+    }
+    .card-title {
+        text-align: center;
+        margin-top: 10px;
+        font-family: 'Comic Sans MS', cursive; /* Police ludique */
+        color: #d10080; /* Couleur du texte */
+    }
+    .footer {
+        width: 100%;
+        background: linear-gradient(to right, #ff7eb3, #ff758c); /* Dégradé joyeux */
+        padding: 15px 0;
+        text-align: center;
+        color: white;
+        font-family: 'Comic Sans MS', cursive;
+    }
+    .footer a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .footer a:hover {
+        text-decoration: underline;
+    }
+</style>
 </head>
 <body>
 

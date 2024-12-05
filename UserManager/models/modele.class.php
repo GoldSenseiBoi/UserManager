@@ -5,11 +5,6 @@ require_once('config/database.php');
 $db = new database();
 $conn = $db->getConnection();
 
-if ($conn) {
-    echo "Connexion réussie !";
-} else {
-    echo "Échec de la connexion.";
-}
 
 class modele {
     private $conn;
