@@ -7,6 +7,9 @@ if (session_status() == PHP_SESSION_NONE) {
 // Charger les fichiers nécessaires
 require_once('controllers/controller.class.php');
 $unControleur = new Controller();
+
+$isAdmin = isset($_SESSION['admin']) && $_SESSION['admin'] == 1;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,7 +20,7 @@ $unControleur = new Controller();
     <link rel="stylesheet" href="css/styles.css">
     <style>
         .container {
-            margin-top: 30px;
+            margin-top: 10px;
         }
         .card {
             margin-bottom: 20px;
@@ -54,6 +57,7 @@ $unControleur = new Controller();
             require_once("views/vue_inscription.php");
         } else {
             require_once("views/vue_connexion.php");
+            $isAdmin = isset($_SESSION['admin']) && $_SESSION['admin'] == 1;
         }
 
         if (isset($_POST['seConnecter'])) {
@@ -74,8 +78,8 @@ $unControleur = new Controller();
             }
         }
     } else {
+        if ($isAdmin) {
         // Si l'utilisateur admin est connecté, afficher la page d'accueil avec les options
-        
             echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-9 offset-md-2 text-center' style='margin-top: 20px;'>
@@ -130,6 +134,49 @@ $unControleur = new Controller();
             </div>
             </div>
             </div>';
+        } else {
+            
+           // Affichage des produits pour les utilisateurs non-admins
+        echo '<h2 class="text-center mt-4" style="font-family: \'Comic Sans MS\', cursive; color: #ff69b4;"> Nos produits </h2>';
+        echo '<div class="container">';
+        echo '<div class="row justify-content-center">';
+
+        // Bouton Déconnexion placé en haut
+        ?>
+        <div class="col-12 text-right mb-3">
+            <a href="index.php?page=deconnexion" class="btn btn-danger" style="background: #ff8585; border: none; font-family: 'Comic Sans MS', cursive;">Déconnexion</a>
+        </div>
+
+        <div class="col-12 text-center">
+            <p class="lead" style="font-family: 'Comic Sans MS', cursive; color: #d10080;">
+                Bonjour <strong><?= htmlspecialchars($_SESSION['prenom']); ?></strong>, explorez notre sélection de bonbons !
+            </p>
+        </div>
+
+        <?php
+        // Récupération des produits depuis le contrôleur
+        $produits = $unControleur->getProduits();
+
+        // Boucle pour afficher chaque produit sous forme de carte
+        foreach ($produits as $produit): ?>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm text-center" style="border-radius: 15px; border: 2px solid #ff69b4;">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 200px; background: #fff0f5; border-radius: 15px 15px 0 0;">
+                        <img class="card-img-top" src="image/bonbon.png" alt="<?= htmlspecialchars($produit['nom']); ?>" style="width: 50%; height: auto;">
+                    </div>
+                    <div class="card-body text-center" style="font-family: 'Comic Sans MS', cursive; color: #d10080;">
+                        <h5 class="card-title"><?= htmlspecialchars($produit['nom']); ?></h5>
+                        <p class="card-text font-weight-bold">Prix : <?= htmlspecialchars($produit['prix']); ?> €</p>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach;
+
+        echo '</div>'; // Fin row
+        echo '</div>'; // Fin container
+
+
+        }
 
     }
 

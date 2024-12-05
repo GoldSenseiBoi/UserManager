@@ -63,5 +63,10 @@ class controller {
     public function verifConnexion($email, $password) {
         return $this->modele->verifConnexion($email, $password);
     }
+
+    public function getProduits()
+    {
+        return $this->modele->getProduits(); // Appelle la méthode du modèle
+    }
 }
 ?>

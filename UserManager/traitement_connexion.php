@@ -20,6 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['nom'] = $user['nom'];
                 $_SESSION['prenom'] = $user['prenom'];
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['admin'] = $user['admin']; // Stocke 1 pour admin, 0 sinon
+                //var_dump($_SESSION);
+                //exit();
+
 
                 // Redirection vers la page d'accueil
                 header("Location: index.php?page=accueil");

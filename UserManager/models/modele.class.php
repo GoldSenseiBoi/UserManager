@@ -159,6 +159,21 @@ class modele {
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getProduits()
+{
+    try {
+        // Requête SQL pour récupérer les produits
+        $query = "SELECT id, nom, prix FROM produit";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retourne un tableau de produits
+    } catch (PDOException $e) {
+        // Gestion des erreurs
+        die("Erreur lors de la récupération des produits : " . $e->getMessage());
+    }
+}
+
     
 }
 ?>
